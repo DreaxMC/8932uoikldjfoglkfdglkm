@@ -13,30 +13,41 @@ public class MySQLAPI {
 	}
 	
 
-	public void setupPlayer(ProxiedPlayer p) {
+	public static void setupPlayer(ProxiedPlayer p) {
+		String name = p.getName();
+		if(getUUID(name).equalsIgnoreCase("ERROR")) {
+			MySQL.Update("INSERT INTO uuids (name,uuid) VALUES ('"+p.getName()+"','"+p.getUniqueId().toString()+"')");
+		}else if(!getUUID(p.getName()).equals(p.getUniqueId().toString())) {
+			
+		}
+		if(getName(p.getUniqueId().toString()).equalsIgnoreCase("ERROR123456789101112")) {
+			MySQL.Update("INSERT INTO names (uuid,name) VALUES ('"+p.getUniqueId().toString()+"','"+p.getName()+"')");
+		}else if(!getName(p.getUniqueId().toString()).equals(p.getName())) {
+			
+		}
 		
 	}
 	
-	public String getUUID(String name) {
+	public static String getUUID(String name) {
 		try {
-			ResultSet rs = MySQL.Query("");
+			ResultSet rs = MySQL.Query("SELECT uuid FROM uuids WHERE name='" + name + "'");
 			while(rs.next()) {
-				rs.getString(1);
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 		}
 		return "ERROR";
 	}
 	
-	public String getName(String uuid) {
+	public static String getName(String uuid) {
 		try {
-			ResultSet rs = MySQL.Query("");
+			ResultSet rs = MySQL.Query("SELECT name FROM names WHERE uuid='" + uuid + "'");
 			while(rs.next()) {
-				rs.getString(1);
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 		}
-		return "ERROR";
+		return "ERROR123456789101112";
 	}
 	
 	
