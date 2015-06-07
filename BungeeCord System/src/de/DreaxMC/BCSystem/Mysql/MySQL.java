@@ -33,7 +33,9 @@ public static Connection con;
         }
        
         public static void Update(String qry){
-               
+               if(con == null) {
+            	   connect();
+               }
                
                 try {
                         Statement stmt = con.createStatement();
@@ -44,6 +46,9 @@ public static Connection con;
         }
        
         public static ResultSet Query(String qry){
+        	 if(con == null) {
+          	   connect();
+             } 
                 ResultSet rs = null;
                
                 try {
