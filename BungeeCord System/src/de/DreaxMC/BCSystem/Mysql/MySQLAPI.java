@@ -18,12 +18,14 @@ public class MySQLAPI {
 		if(getUUID(name).equalsIgnoreCase("ERROR")) {
 			MySQL.Update("INSERT INTO uuids (name,uuid) VALUES ('"+p.getName()+"','"+p.getUniqueId().toString()+"')");
 		}else if(!getUUID(p.getName()).equals(p.getUniqueId().toString())) {
-			
+			MySQL.Update("DELETE FROM uuids WHERE name='" + p.getName() + "'");
+			MySQL.Update("INSERT INTO uuids (name,uuid) VALUES ('"+p.getName()+"','"+p.getUniqueId().toString()+"')");
 		}
 		if(getName(p.getUniqueId().toString()).equalsIgnoreCase("ERROR123456789101112")) {
 			MySQL.Update("INSERT INTO names (uuid,name) VALUES ('"+p.getUniqueId().toString()+"','"+p.getName()+"')");
 		}else if(!getName(p.getUniqueId().toString()).equals(p.getName())) {
-			
+			MySQL.Update("DELETE FROM names WHERE uuid='" + p.getUniqueId().toString() + "'");
+			MySQL.Update("INSERT INTO names (uuid,name) VALUES ('"+p.getUniqueId().toString()+"','"+p.getName()+"')");
 		}
 		
 	}
