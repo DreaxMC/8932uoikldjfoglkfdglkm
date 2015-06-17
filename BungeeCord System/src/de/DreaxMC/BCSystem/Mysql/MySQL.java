@@ -31,9 +31,17 @@ public static Connection con;
                 }
                
         }
+        
+        public static boolean isClosed() {
+        	try {
+				return con.isClosed();
+			} catch (SQLException e) {}
+        	
+        	return false;
+        }
        
         public static void Update(String qry){
-               if(con == null) {
+               if(con == null  || isClosed()) {
             	   connect();
                }
                
@@ -46,7 +54,7 @@ public static Connection con;
         }
        
         public static ResultSet Query(String qry){
-        	 if(con == null) {
+        	 if(con == null || isClosed())  {
           	   connect();
              } 
                 ResultSet rs = null;
